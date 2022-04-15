@@ -344,7 +344,15 @@ public class Login extends javax.swing.JFrame {
             ResultSet rs = st.executeQuery(query);
             
                 if (rs.next()) {
+                    //entar a la pagina de los apartados
                     JOptionPane.showMessageDialog(this, "Bienvenido");
+                    Dashboard ds = new Dashboard();
+                     ds.setVisible(true);
+                     ds.pack();
+                     ds.setLocationRelativeTo(null);
+                     ds.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                     this.dispose();
+                    
                 }else{
                     JOptionPane.showMessageDialog(this, "Campos incorrectos");
                 }
