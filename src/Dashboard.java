@@ -17,7 +17,7 @@ public class Dashboard extends javax.swing.JFrame {
     
     RegisterVent s1;
     Productos s2;
-
+    Dashboard s0;
     
     
     /**
@@ -25,10 +25,10 @@ public class Dashboard extends javax.swing.JFrame {
      */
     public Dashboard() {
         initComponents();
-        s1 = new RegisterVent();
-        ShowPanel(s1.getFondo());
+      
     }
-
+    
+     
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -250,6 +250,11 @@ public class Dashboard extends javax.swing.JFrame {
         label_inicio.setForeground(new java.awt.Color(255, 255, 255));
         label_inicio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_inicio.setText("Inicio");
+        label_inicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                label_inicioMousePressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panel_inicioLayout = new javax.swing.GroupLayout(panel_inicio);
         panel_inicio.setLayout(panel_inicioLayout);
@@ -272,7 +277,7 @@ public class Dashboard extends javax.swing.JFrame {
         panel_top.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         Contenedor.add(panel_top, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 870, 30));
 
-        contenido.setBackground(new java.awt.Color(0, 0, 0));
+        contenido.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout contenidoLayout = new javax.swing.GroupLayout(contenido);
         contenido.setLayout(contenidoLayout);
@@ -311,7 +316,14 @@ public class Dashboard extends javax.swing.JFrame {
         ShowPanel(s2.getFondo());
     }//GEN-LAST:event_label_ProductosMousePressed
 
-    
+    private void label_inicioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_inicioMousePressed
+       s0 = new Dashboard();
+        ShowPanel(s0.getFondo());
+    }//GEN-LAST:event_label_inicioMousePressed
+
+      public JPanel getFondo(){
+        return contenido;
+    }
     private void ShowPanel(JPanel a){
         a.setSize(870, 530);
         a.setLocation(0, 0);
