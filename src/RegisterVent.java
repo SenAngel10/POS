@@ -11,6 +11,7 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
@@ -36,14 +37,22 @@ public class RegisterVent extends javax.swing.JFrame {
          Connection reg;
          PreparedStatement ps;
          ResultSet rs;
-         DefaultTableModel model;
+         DefaultTableModel model, model2;
          Statement st;
+         
+         double total;
+         double sub_total;
+         double importe;
     
     public RegisterVent() {
         initComponents();
           model = new DefaultTableModel();
+          model2 = new DefaultTableModel();
          conn = new Conexion();
          reg = conn.getConnection();
+         total = 0;
+         sub_total = 0.0;
+         importe = 0.0;
         
     }
 
@@ -63,7 +72,7 @@ public class RegisterVent extends javax.swing.JFrame {
         label_Cantidad = new javax.swing.JLabel();
         Panel_ContainerBTn = new javax.swing.JPanel();
         panel_Cantidad = new javax.swing.JPanel();
-        label_PrecioFinal = new javax.swing.JLabel();
+        textfield_cantidadFinal = new javax.swing.JTextField();
         Panel_acciones = new javax.swing.JPanel();
         label_serie = new javax.swing.JLabel();
         Textfield_serie = new javax.swing.JTextField();
@@ -80,15 +89,17 @@ public class RegisterVent extends javax.swing.JFrame {
         label_contMonto = new javax.swing.JLabel();
         label_contTotal = new javax.swing.JLabel();
         label_contCambio = new javax.swing.JLabel();
+        button_calcular = new javax.swing.JButton();
         Textfield_busqueda = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         table_productosAdd = new javax.swing.JTable();
         button_eliminar = new javax.swing.JButton();
         button_clean = new javax.swing.JButton();
         label_Producto = new javax.swing.JLabel();
-        spinner_cantidad = new javax.swing.JSpinner();
         jScrollPane2 = new javax.swing.JScrollPane();
         table_search = new javax.swing.JTable();
+        button_agregar = new javax.swing.JButton();
+        Textfield_cont = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(870, 530));
@@ -112,20 +123,19 @@ public class RegisterVent extends javax.swing.JFrame {
 
         panel_Cantidad.setBackground(new java.awt.Color(153, 153, 255));
 
-        label_PrecioFinal.setFont(new java.awt.Font("Arial", 0, 36)); // NOI18N
-        label_PrecioFinal.setForeground(new java.awt.Color(0, 0, 0));
-        label_PrecioFinal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label_PrecioFinal.setText("Cantidad");
+        textfield_cantidadFinal.setBackground(new java.awt.Color(102, 102, 255));
+        textfield_cantidadFinal.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        textfield_cantidadFinal.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         javax.swing.GroupLayout panel_CantidadLayout = new javax.swing.GroupLayout(panel_Cantidad);
         panel_Cantidad.setLayout(panel_CantidadLayout);
         panel_CantidadLayout.setHorizontalGroup(
             panel_CantidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(label_PrecioFinal, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+            .addComponent(textfield_cantidadFinal, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
         );
         panel_CantidadLayout.setVerticalGroup(
             panel_CantidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(label_PrecioFinal, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+            .addComponent(textfield_cantidadFinal, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
         );
 
         Panel_ContainerBTn.add(panel_Cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 280, 80));
@@ -156,7 +166,7 @@ public class RegisterVent extends javax.swing.JFrame {
         Panel_acciones.add(label_confirmarPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 290, -1, -1));
 
         Button_confirmar.setText("Confirmar");
-        Panel_acciones.add(Button_confirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 310, -1, -1));
+        Panel_acciones.add(Button_confirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, -1, -1));
         Panel_acciones.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 230, 10));
 
         label_Montorecibido.setText("Monto recibido");
@@ -177,6 +187,14 @@ public class RegisterVent extends javax.swing.JFrame {
         label_contCambio.setText("00.00");
         Panel_acciones.add(label_contCambio, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 240, 80, -1));
 
+        button_calcular.setText("Calcular");
+        button_calcular.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                button_calcularMouseClicked(evt);
+            }
+        });
+        Panel_acciones.add(button_calcular, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 310, -1, -1));
+
         Panel_ContainerBTn.add(Panel_acciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 280, 370));
 
         ContenidoR.add(Panel_ContainerBTn, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 30, 280, 450));
@@ -189,6 +207,9 @@ public class RegisterVent extends javax.swing.JFrame {
             }
         });
         Textfield_busqueda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                Textfield_busquedaKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 Textfield_busquedaKeyReleased(evt);
             }
@@ -203,11 +224,11 @@ public class RegisterVent extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Imagen del prodcuto", "Nombre del Producto", "Precio", "Cantidad", "Importe"
+                "Nombre del Producto", "Precio", "Cantidad", "Importe"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Double.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Double.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -216,20 +237,24 @@ public class RegisterVent extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(table_productosAdd);
 
-        ContenidoR.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 570, 150));
+        ContenidoR.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 570, 150));
 
         button_eliminar.setText("Eliminar");
-        ContenidoR.add(button_eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 390, -1, -1));
+        ContenidoR.add(button_eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 420, -1, -1));
 
         button_clean.setText("Limpiar");
-        ContenidoR.add(button_clean, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 390, -1, -1));
+        button_clean.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                button_cleanMouseClicked(evt);
+            }
+        });
+        ContenidoR.add(button_clean, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 20, -1, -1));
 
         label_Producto.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         label_Producto.setForeground(new java.awt.Color(0, 0, 0));
         label_Producto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_Producto.setText("Producto");
         ContenidoR.add(label_Producto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 90, 20));
-        ContenidoR.add(spinner_cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 20, 60, -1));
 
         table_search.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -251,6 +276,15 @@ public class RegisterVent extends javax.swing.JFrame {
 
         ContenidoR.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 440, 90));
 
+        button_agregar.setText("Agregar");
+        button_agregar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                button_agregarMouseClicked(evt);
+            }
+        });
+        ContenidoR.add(button_agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, -1, -1));
+        ContenidoR.add(Textfield_cont, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 20, 60, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -270,6 +304,7 @@ public class RegisterVent extends javax.swing.JFrame {
             Textfield_busqueda.setText("");
             Textfield_busqueda.setForeground(Color.black);
         }
+        
     }//GEN-LAST:event_Textfield_busquedaMouseClicked
 
     private void ContenidoRMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ContenidoRMouseClicked
@@ -282,12 +317,13 @@ public class RegisterVent extends javax.swing.JFrame {
       
         Object[] row = new Object[3];
    
+        if(valor != null || Textfield_busqueda.getText().trim().length() != 0 || Textfield_busqueda.getText() != null){
         try{
             
                 st = reg.createStatement();
-                rs = st.executeQuery("SELECT * FROM `productos` WHERE nombre LIKE '"+valor+"'");
+                rs = st.executeQuery("SELECT * FROM `productos` WHERE nombre LIKE '"+valor+"%'");
                 model = (DefaultTableModel) table_search.getModel();
-                
+                System.out.println(valor);
                 
             while(rs.next()){
                  row[0] = rs.getObject("nombre");
@@ -304,31 +340,130 @@ public class RegisterVent extends javax.swing.JFrame {
         }catch (SQLException ex) {
             Logger.getLogger(RegisterVent.class.getName()).log(Level.SEVERE, null, ex);
         }
+        }
              
      }
     
-    public void limpiar(){
-        model.getDataVector().removeAllElements();
-        table_search.setModel(model);
-    }
+    private void GetProducts() throws SQLException{
+       try{
+         st = reg.createStatement();
+         rs = st.executeQuery("SELECT * FROM `productos`");
+
+        }catch (SQLException ex) {
+            Logger.getLogger(RegisterVent.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+             
+     }
     
     private void Textfield_busquedaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Textfield_busquedaKeyTyped
                    
     }//GEN-LAST:event_Textfield_busquedaKeyTyped
 
     private void Textfield_busquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Textfield_busquedaKeyReleased
-        String cadena = Textfield_busqueda.getText();
-        
-        if(Textfield_busqueda.getText().equals("")){
-                limpiar();
-        }else{
+       if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            String cadena = Textfield_busqueda.getText();
+        System.out.println(cadena);
+     
+       if(Textfield_busqueda.getText().trim().length() != 0){
         try {
+            
             GetProducts(cadena);
-        } catch (SQLException ex) {
+          
+            
+            } catch (SQLException ex) {
             Logger.getLogger(RegisterVent.class.getName()).log(Level.SEVERE, null, ex);
+                }
         }
-        }
+       }
     }//GEN-LAST:event_Textfield_busquedaKeyReleased
+
+    private void Textfield_busquedaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Textfield_busquedaKeyPressed
+    
+    }//GEN-LAST:event_Textfield_busquedaKeyPressed
+
+    private void button_cleanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button_cleanMouseClicked
+      
+        // eliminacion de la tabla con el boton clean para limpiar los datos obtenidos por medio de la busqueda
+        model.getDataVector().removeAllElements();
+       table_search.updateUI();  
+    }//GEN-LAST:event_button_cleanMouseClicked
+
+    private void button_agregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button_agregarMouseClicked
+        //agregarcion de un producto
+        Object[] row = new Object[4];
+        
+        int select = table_search.getSelectedRow();
+        try{
+             if(select>=0){
+                 
+                 String valor = "";
+                 valor = table_search.getValueAt(select, 0).toString();
+                 
+                st = reg.createStatement();
+                rs = st.executeQuery("SELECT * FROM `productos` WHERE nombre LIKE '"+valor+"%'");
+                model2 = (DefaultTableModel) table_productosAdd.getModel();
+           
+                 while(rs.next()){
+                 row[0] = rs.getObject("nombre");
+                 row[1] = rs.getObject("precio");
+                 
+                 String cant = Textfield_cont.getText();
+                 String precio = table_search.getValueAt(select, 1).toString();
+                 //realizando los calculos
+                 
+                 double x = (Integer.parseInt(precio) * Integer.parseInt(cant)); 
+                 
+                 
+                 //se añade
+                 
+                 System.out.println(cant);
+                 System.out.println(x);
+
+                 row[2] = cant;
+                 row[3] = x;                 
+                 model2.addRow(row);
+             
+                 Double calcula = x;
+                 
+                 total = total + calcula;
+                textfield_cantidadFinal.setText(String.valueOf(total));
+            }
+                                  
+            table_productosAdd.setModel(model2);
+                              
+            rs.close();
+            st.close();
+            Textfield_cont.setText("");
+                 
+                 JOptionPane.showMessageDialog(null, "agregada");
+               
+            }else{
+                 JOptionPane.showMessageDialog(null, "Seleccione una fila porfavor");
+             }
+             }catch(SQLException ex) {
+            Logger.getLogger(RegisterVent.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        
+    }//GEN-LAST:event_button_agregarMouseClicked
+
+    private void button_calcularMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button_calcularMouseClicked
+        
+            
+                double aux = Double.valueOf(Textfield__Monto.getText());
+                 
+                double cambio = aux - Double.valueOf(textfield_cantidadFinal.getText());
+                 
+               
+                 if(cambio != 0){
+                 label_contMonto.setText(Textfield__Monto.getText());
+                 label_contTotal.setText(textfield_cantidadFinal.getText());
+                 label_contCambio.setText(String.valueOf(cambio));
+               
+                 }else if(Textfield__Monto.getText().equals("")){
+                    JOptionPane.showMessageDialog(null, "cambio por favor"); 
+                 }
+    }//GEN-LAST:event_button_calcularMouseClicked
 
     /**
      * @param args the command line arguments
@@ -374,7 +509,10 @@ public class RegisterVent extends javax.swing.JFrame {
     private javax.swing.JTextField Textfield_NumVenta;
     private javax.swing.JTextField Textfield__Monto;
     private javax.swing.JTextField Textfield_busqueda;
+    private javax.swing.JTextField Textfield_cont;
     private javax.swing.JTextField Textfield_serie;
+    private javax.swing.JButton button_agregar;
+    private javax.swing.JButton button_calcular;
     private javax.swing.JButton button_clean;
     private javax.swing.JButton button_eliminar;
     private javax.swing.JScrollPane jScrollPane1;
@@ -384,7 +522,6 @@ public class RegisterVent extends javax.swing.JFrame {
     private javax.swing.JLabel label_Monto;
     private javax.swing.JLabel label_Montorecibido;
     private javax.swing.JLabel label_NumVenta;
-    private javax.swing.JLabel label_PrecioFinal;
     private javax.swing.JLabel label_Producto;
     private javax.swing.JLabel label_Total;
     private javax.swing.JLabel label_confirmarPago;
@@ -393,8 +530,8 @@ public class RegisterVent extends javax.swing.JFrame {
     private javax.swing.JLabel label_contTotal;
     private javax.swing.JLabel label_serie;
     private javax.swing.JPanel panel_Cantidad;
-    private javax.swing.JSpinner spinner_cantidad;
     private javax.swing.JTable table_productosAdd;
     private javax.swing.JTable table_search;
+    private javax.swing.JTextField textfield_cantidadFinal;
     // End of variables declaration//GEN-END:variables
 }

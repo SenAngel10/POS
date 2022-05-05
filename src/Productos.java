@@ -253,6 +253,7 @@ public class Productos extends javax.swing.JFrame {
                 ps = reg.prepareStatement("DELETE FROM `productos` WHERE `id_product` = ?");
                 ps.setObject(1, table_prodcuts.getValueAt(i, 0));
                 res = ps.executeUpdate();
+                
                 JOptionPane.showMessageDialog(null, "Producto eliminado");        
                 model.removeRow(i);
                 GetProducts();
