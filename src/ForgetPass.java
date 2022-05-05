@@ -1,6 +1,12 @@
 
-import java.awt.Color;
-import javax.swing.JFrame;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -10,17 +16,24 @@ import javax.swing.JFrame;
 
 /**
  *
- * @author Brayan
+ * @author Manuel
  */
 public class ForgetPass extends javax.swing.JFrame {
+    PreparedStatement ps;
+    public String user;
+    Conexion conn;
+    Connection reg;
+   
 
     /**
      * Creates new form ForgetPass
      */
     public ForgetPass() {
         initComponents();
+        conn = new Conexion();
+        reg = conn.getConnection();
     }
-
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,206 +43,199 @@ public class ForgetPass extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Panel_contenedor = new javax.swing.JPanel();
-        Label_icon = new javax.swing.JLabel();
-        Panel_topPass = new javax.swing.JPanel();
-        Btn_close = new javax.swing.JPanel();
-        label_Xclose = new javax.swing.JLabel();
-        Label_forgetpass = new javax.swing.JLabel();
-        label_user = new javax.swing.JLabel();
-        jTextField_user = new javax.swing.JTextField();
-        jSeparator_user = new javax.swing.JSeparator();
-        jLabel_email = new javax.swing.JLabel();
-        jTextField_email = new javax.swing.JTextField();
-        jSeparator_email = new javax.swing.JSeparator();
-        jLabel_newPass = new javax.swing.JLabel();
-        jTextField_newPass = new javax.swing.JTextField();
-        jSeparator_newPass = new javax.swing.JSeparator();
-        jLabel_ConfirmPass = new javax.swing.JLabel();
-        jTextField_ConfirmPass = new javax.swing.JTextField();
-        jSeparator_ConfirmPass = new javax.swing.JSeparator();
-        Btn_Confir = new javax.swing.JPanel();
-        label_btn = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        txtUser = new javax.swing.JTextField();
+        txtNpass = new javax.swing.JTextField();
+        jSeparator2 = new javax.swing.JSeparator();
+        jSeparator1 = new javax.swing.JSeparator();
+        txtCpass = new javax.swing.JTextField();
+        jSeparator3 = new javax.swing.JSeparator();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
-        setResizable(false);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setBackground(new java.awt.Color(250, 250, 250));
 
-        Panel_contenedor.setBackground(new java.awt.Color(255, 255, 255));
-        Panel_contenedor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        Label_icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Favicon login.png"))); // NOI18N
-        Panel_contenedor.add(Label_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 52, 29));
+        jLabel1.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        jLabel1.setText("Usuario");
 
-        Panel_topPass.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel2.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        jLabel2.setText("Nueva Contraseña");
 
-        Btn_close.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Favicon login.png"))); // NOI18N
 
-        label_Xclose.setBackground(new java.awt.Color(255, 255, 255));
-        label_Xclose.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        label_Xclose.setForeground(new java.awt.Color(0, 0, 0));
-        label_Xclose.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label_Xclose.setText("X");
-        label_Xclose.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        label_Xclose.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        label_Xclose.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                label_XcloseMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                label_XcloseMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                label_XcloseMouseExited(evt);
+        jTextField1.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
+        jTextField1.setText("Cambiar Contraseña");
+        jTextField1.setBorder(null);
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout Btn_closeLayout = new javax.swing.GroupLayout(Btn_close);
-        Btn_close.setLayout(Btn_closeLayout);
-        Btn_closeLayout.setHorizontalGroup(
-            Btn_closeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(label_Xclose, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-        );
-        Btn_closeLayout.setVerticalGroup(
-            Btn_closeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(label_Xclose, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-        );
+        jLabel3.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        jLabel3.setText("Confirmar Contraseña");
 
-        javax.swing.GroupLayout Panel_topPassLayout = new javax.swing.GroupLayout(Panel_topPass);
-        Panel_topPass.setLayout(Panel_topPassLayout);
-        Panel_topPassLayout.setHorizontalGroup(
-            Panel_topPassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_topPassLayout.createSequentialGroup()
-                .addGap(0, 482, Short.MAX_VALUE)
-                .addComponent(Btn_close, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        Panel_topPassLayout.setVerticalGroup(
-            Panel_topPassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Panel_topPassLayout.createSequentialGroup()
-                .addComponent(Btn_close, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-
-        Panel_contenedor.add(Panel_topPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, -1));
-
-        Label_forgetpass.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        Label_forgetpass.setForeground(new java.awt.Color(0, 0, 0));
-        Label_forgetpass.setText("Recuperacion de contraseña");
-        Panel_contenedor.add(Label_forgetpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, -1, -1));
-
-        label_user.setForeground(new java.awt.Color(0, 0, 0));
-        label_user.setText("Nombre de usuario");
-        Panel_contenedor.add(label_user, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 151, -1));
-
-        jTextField_user.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField_user.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField_user.setBorder(null);
-        Panel_contenedor.add(jTextField_user, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 150, 235, -1));
-        Panel_contenedor.add(jSeparator_user, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 170, 235, 10));
-
-        jLabel_email.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel_email.setText("Correo electronico:");
-        Panel_contenedor.add(jLabel_email, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 151, -1));
-
-        jTextField_email.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField_email.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField_email.setBorder(null);
-        Panel_contenedor.add(jTextField_email, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 190, 235, -1));
-        Panel_contenedor.add(jSeparator_email, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 220, 235, 10));
-
-        jLabel_newPass.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel_newPass.setText("Contraseña nueva:");
-        Panel_contenedor.add(jLabel_newPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, 151, -1));
-
-        jTextField_newPass.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField_newPass.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField_newPass.setBorder(null);
-        Panel_contenedor.add(jTextField_newPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 250, 235, -1));
-        Panel_contenedor.add(jSeparator_newPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 270, 235, 10));
-
-        jLabel_ConfirmPass.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel_ConfirmPass.setText("Confirmar contraseña");
-        Panel_contenedor.add(jLabel_ConfirmPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, 151, -1));
-
-        jTextField_ConfirmPass.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField_ConfirmPass.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField_ConfirmPass.setBorder(null);
-        Panel_contenedor.add(jTextField_ConfirmPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 300, 235, -1));
-        Panel_contenedor.add(jSeparator_ConfirmPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 320, 235, 10));
-
-        Btn_Confir.setBackground(new java.awt.Color(255, 231, 179));
-        Btn_Confir.setForeground(new java.awt.Color(0, 0, 0));
-
-        label_btn.setFont(new java.awt.Font("Arial Black", 0, 11)); // NOI18N
-        label_btn.setForeground(new java.awt.Color(0, 0, 0));
-        label_btn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label_btn.setText("Confirmar");
-        label_btn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                label_btnMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                label_btnMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                label_btnMouseExited(evt);
+        txtUser.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        txtUser.setForeground(new java.awt.Color(102, 102, 102));
+        txtUser.setText("Ingresa Usuario");
+        txtUser.setBorder(null);
+        txtUser.setSelectionEnd(29);
+        txtUser.setSelectionStart(29);
+        txtUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUserActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout Btn_ConfirLayout = new javax.swing.GroupLayout(Btn_Confir);
-        Btn_Confir.setLayout(Btn_ConfirLayout);
-        Btn_ConfirLayout.setHorizontalGroup(
-            Btn_ConfirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Btn_ConfirLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(label_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+        txtNpass.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        txtNpass.setForeground(new java.awt.Color(102, 102, 102));
+        txtNpass.setText("Contraseña");
+        txtNpass.setBorder(null);
+        txtNpass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNpassActionPerformed(evt);
+            }
+        });
+
+        txtCpass.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        txtCpass.setForeground(new java.awt.Color(102, 102, 102));
+        txtCpass.setText("Confirma");
+        txtCpass.setBorder(null);
+        txtCpass.setSelectionEnd(29);
+        txtCpass.setSelectionStart(29);
+
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1.setFont(new java.awt.Font("Arial Black", 0, 11)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(51, 51, 51));
+        jButton1.setText("Guardar");
+        jButton1.setBorder(null);
+        jButton1.setBorderPainted(false);
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(123, 123, 123)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addGap(79, 79, 79)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jSeparator3)
+                            .addComponent(txtUser)
+                            .addComponent(txtNpass)
+                            .addComponent(jSeparator2)
+                            .addComponent(jSeparator1)
+                            .addComponent(txtCpass, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(0, 141, Short.MAX_VALUE))
         );
-        Btn_ConfirLayout.setVerticalGroup(
-            Btn_ConfirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Btn_ConfirLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(label_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNpass, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtCpass, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(jLabel3)))
+                .addGap(18, 18, 18)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
         );
 
-        Panel_contenedor.add(Btn_Confir, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 370, -1, -1));
-
-        getContentPane().add(Panel_contenedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 490));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void label_XcloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_XcloseMouseClicked
+    private void txtUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUserActionPerformed
 
-        Login lg = new Login();
-        lg.setVisible(true);
-        lg.pack();
-        lg.setLocationRelativeTo(null);
-        lg.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.dispose();
-    }//GEN-LAST:event_label_XcloseMouseClicked
+    private void txtNpassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNpassActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNpassActionPerformed
 
-    private void label_XcloseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_XcloseMouseEntered
-        Btn_close.setBackground(Color.red);
-        label_Xclose.setForeground(Color.white);
-    }//GEN-LAST:event_label_XcloseMouseEntered
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+         try{
+                String newC ="";
+                String user = "";
+                
+                newC = txtNpass.getText();
+               user = txtUser.getText();
+                
+                ps = reg.prepareStatement( "UPDATE `admin` SET `contraseña`='" + newC + "' WHERE `admin`.`usuario`='" + user + "'");
+    
+               
+                int rs = ps.executeUpdate();
+                
+                System.out.println(rs);
+                JOptionPane.showMessageDialog(null, "Contraseña Actualizada");
+                
+                
+            } catch (SQLException e) {
+                 Logger.getLogger(ForgetPass.class.getName()).log(Level.SEVERE, null, e);
+            }
+         Login lg = new Login();
+         lg.setVisible(true);
+         this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void label_XcloseMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_XcloseMouseExited
-         Btn_close.setBackground(Color.white);
-        label_Xclose.setForeground(Color.black);
-    }//GEN-LAST:event_label_XcloseMouseExited
-
-    private void label_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_btnMouseClicked
-         javax.swing.JOptionPane.showMessageDialog(this, "Cambio de contraseña exitoso", "Cambio de contraseña", javax.swing.JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_label_btnMouseClicked
-
-    private void label_btnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_btnMouseEntered
-          Btn_Confir.setBackground(new Color(255,236,196));
-    }//GEN-LAST:event_label_btnMouseEntered
-
-    private void label_btnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_btnMouseExited
-        Btn_Confir.setBackground(new Color(255,231,179));
-    }//GEN-LAST:event_label_btnMouseExited
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -267,25 +273,18 @@ public class ForgetPass extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel Btn_Confir;
-    private javax.swing.JPanel Btn_close;
-    private javax.swing.JLabel Label_forgetpass;
-    private javax.swing.JLabel Label_icon;
-    private javax.swing.JPanel Panel_contenedor;
-    private javax.swing.JPanel Panel_topPass;
-    private javax.swing.JLabel jLabel_ConfirmPass;
-    private javax.swing.JLabel jLabel_email;
-    private javax.swing.JLabel jLabel_newPass;
-    private javax.swing.JSeparator jSeparator_ConfirmPass;
-    private javax.swing.JSeparator jSeparator_email;
-    private javax.swing.JSeparator jSeparator_newPass;
-    private javax.swing.JSeparator jSeparator_user;
-    private javax.swing.JTextField jTextField_ConfirmPass;
-    private javax.swing.JTextField jTextField_email;
-    private javax.swing.JTextField jTextField_newPass;
-    private javax.swing.JTextField jTextField_user;
-    private javax.swing.JLabel label_Xclose;
-    private javax.swing.JLabel label_btn;
-    private javax.swing.JLabel label_user;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField txtCpass;
+    private javax.swing.JTextField txtNpass;
+    private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
 }
