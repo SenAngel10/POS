@@ -62,6 +62,7 @@ public class Dashboard extends javax.swing.JFrame {
         separetor_I = new javax.swing.JSeparator();
         separetor_R = new javax.swing.JSeparator();
         separetor_ReportV = new javax.swing.JSeparator();
+        CerrarS = new javax.swing.JLabel();
         panel_top = new javax.swing.JPanel();
         label_inicio = new javax.swing.JLabel();
         Btn_close = new javax.swing.JPanel();
@@ -83,7 +84,6 @@ public class Dashboard extends javax.swing.JFrame {
         pBtn_RV.setBackground(new java.awt.Color(255, 255, 255));
 
         label_RV.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        label_RV.setForeground(new java.awt.Color(0, 0, 0));
         label_RV.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_RV.setText("Registro de ventas");
         label_RV.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -119,7 +119,6 @@ public class Dashboard extends javax.swing.JFrame {
         pBtn_Productos.setBackground(new java.awt.Color(255, 255, 255));
 
         label_Productos.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        label_Productos.setForeground(new java.awt.Color(0, 0, 0));
         label_Productos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_Productos.setText("Productos");
         label_Productos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -155,7 +154,6 @@ public class Dashboard extends javax.swing.JFrame {
         pBtn_Search.setBackground(new java.awt.Color(255, 255, 255));
 
         label_Search.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        label_Search.setForeground(new java.awt.Color(0, 0, 0));
         label_Search.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_Search.setText("Busqueda de productos");
         label_Search.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -187,7 +185,6 @@ public class Dashboard extends javax.swing.JFrame {
         pBtn_Inventario.setBackground(new java.awt.Color(255, 255, 255));
 
         labell_Invetarios.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        labell_Invetarios.setForeground(new java.awt.Color(0, 0, 0));
         labell_Invetarios.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labell_Invetarios.setText("Inventarios");
         labell_Invetarios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -223,7 +220,6 @@ public class Dashboard extends javax.swing.JFrame {
         pBtn_ReportV.setBackground(new java.awt.Color(255, 255, 255));
 
         label_ReportV.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        label_ReportV.setForeground(new java.awt.Color(0, 0, 0));
         label_ReportV.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_ReportV.setText("Reporte de ventas");
         label_ReportV.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -259,7 +255,6 @@ public class Dashboard extends javax.swing.JFrame {
         pBtn_ReportC.setBackground(new java.awt.Color(255, 255, 255));
 
         label_ReportC.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        label_ReportC.setForeground(new java.awt.Color(0, 0, 0));
         label_ReportC.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_ReportC.setText("Reporte de compras");
         label_ReportC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -295,7 +290,6 @@ public class Dashboard extends javax.swing.JFrame {
         pBtn_Reports.setBackground(new java.awt.Color(255, 255, 255));
 
         label_Reports.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        label_Reports.setForeground(new java.awt.Color(0, 0, 0));
         label_Reports.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_Reports.setText("Reportes");
         label_Reports.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -349,6 +343,15 @@ public class Dashboard extends javax.swing.JFrame {
         separetor_ReportV.setBackground(new java.awt.Color(121, 121, 125));
         panel_dash.add(separetor_ReportV, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 180, 10));
 
+        CerrarS.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        CerrarS.setText("Cerrar Sesion");
+        CerrarS.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CerrarSMouseClicked(evt);
+            }
+        });
+        panel_dash.add(CerrarS, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 500, 100, 20));
+
         Contenedor.add(panel_dash, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 180, 530));
 
         panel_top.setBackground(new java.awt.Color(255, 195, 147));
@@ -369,7 +372,6 @@ public class Dashboard extends javax.swing.JFrame {
         Btn_close.setBackground(new java.awt.Color(255, 255, 255));
 
         label_Xclose.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        label_Xclose.setForeground(new java.awt.Color(0, 0, 0));
         label_Xclose.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_Xclose.setText("X");
         label_Xclose.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -536,6 +538,13 @@ public class Dashboard extends javax.swing.JFrame {
         pBtn_Reports.setBackground(new Color(255,255,255));
     }//GEN-LAST:event_label_ReportsMouseExited
 
+    private void CerrarSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CerrarSMouseClicked
+        // TODO add your handling code here:
+        Login lg=new Login();
+        lg.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_CerrarSMouseClicked
+
       public JPanel getFondo(){
         return contenido;
     }
@@ -586,6 +595,7 @@ public class Dashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Btn_close;
+    private javax.swing.JLabel CerrarS;
     private javax.swing.JPanel Contenedor;
     private javax.swing.JPanel contenido;
     private javax.swing.JLabel label_Productos;
